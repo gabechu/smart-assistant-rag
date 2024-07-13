@@ -27,8 +27,8 @@ class RagPipeline:
             self._retrieval.documents = chunks
         return self._retrieval.documents
 
-    def generate_response(self, query: str, top_k: int = 5) -> None:
+    def generate_response(self, query: str) -> None:
         self._load_data()
-        top_chunks = self._retrieval.search(query, top_k=top_k)
+        top_chunks = self._retrieval.search(query)
         context = " ".join(top_chunks)
         self._generation.generate(prompt=query + " " + context)

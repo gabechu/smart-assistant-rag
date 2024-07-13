@@ -2,7 +2,8 @@ from abc import ABC, abstractmethod
 
 
 class BaseSearch(ABC):
-    def __init__(self) -> None:
+    def __init__(self, top_k: int) -> None:
+        self._top_k = top_k
         self._documents: list[str] | None = None
 
     @property
@@ -19,4 +20,4 @@ class BaseSearch(ABC):
         return self._documents is not None
 
     @abstractmethod
-    def search(self, query: str, top_k: int) -> list[str]: ...
+    def search(self, query: str) -> list[str]: ...
