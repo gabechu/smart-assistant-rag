@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "smart-assistant-rag"
+version = "0.1.0"
+description = ""
+authors = ["wchu <wei.g.chu@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pypdf = "^4.2.0"
+requests = "^2.32.3"
+cryptography = "^42.0.8"  # pypdf dependency
+transformers = "^4.42.4"
+torch = "^2.3.1"
+openai = "^1.35.13"
+tiktoken = "^0.7.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4.2"
+ruff = "^0.5.1"
+mypy = "^1.10.1"
+types-requests = "^2.32.0.20240712"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+fix = true
+
+[tool.mypy]
+files = "src, tests"
+mypy_path = "src"
+namespace_packages = true
+ignore_missing_imports = true
+show_error_codes = true
+strict = true
