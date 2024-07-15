@@ -11,24 +11,31 @@ class RagPipeline:
     ]
 
     def __init__(self, retrieval: BaseSearch, generation: BaseGeneration, split_chunk_size: int = 100) -> None:
-        self._data_loader = PdfDataLoader()
         self._retrieval = retrieval
         self._generation = generation
-        self._text_splitter = TextSplitter(chunk_size=split_chunk_size)
+        self._split_chunk_size = split_chunk_size
 
-    def _load_data(self) -> list[str]:
+    @classmethod
+    def load_data_in_chunks(self, split_chunk_size: int) -> list[str]:
+        text_splitter = TextSplitter(chunk_size=split_chunk_size)
+        data_loader = PdfDataLoader()
+
+        chunks = []
+        for path in self._pdf_urls:
+            pdf_documents = data_loader.load_data(path)
+            doc_chunks = text_splitter.split_text(pdf_documents)
+            chunks.extend(doc_chunks)
+        return chunks
+
+    def _load_documents_for_retrieval(self) -> list[str]:
         # TODO: track which document the split chunk is from
         if not self._retrieval.has_documents():
-            chunks = []
-            for path in self._pdf_urls:
-                pdf_documents = self._data_loader.load_data(path)
-                doc_chunks = self._text_splitter.split_text(pdf_documents)
-                chunks.extend(doc_chunks)
+            chunks = self.load_data_in_chunks(self._split_chunk_size)
             self._retrieval.documents = chunks
         return self._retrieval.documents
 
     def generate_response(self, query: str) -> None:
-        self._load_data()
+        self._load_documents_for_retrieval()
         top_chunks = self._retrieval.search(query)
         context = " ".join(top_chunks)
         self._generation.generate(prompt=query + " " + context)
