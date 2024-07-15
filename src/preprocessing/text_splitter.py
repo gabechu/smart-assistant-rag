@@ -4,7 +4,7 @@ import tiktoken
 class TextSplitter:
     def __init__(self, chunk_size: int = 100) -> None:
         self._chunk_size = chunk_size
-        self._tokenizer = tiktoken.get_encoding("o200k_base")
+        self._tokenizer = tiktoken.get_encoding("cl100k_base")
 
     def split_text(self, text: str) -> list[str]:
         tokens = self._tokenizer.encode(text)
