@@ -5,7 +5,7 @@
     <h1 align="center">SMART-ASSISTANT-RAG</h1>
 </p>
 <p align="center">
-    <em>Unleash Intelligence, Elevate Your Conversations</em>
+    <em>Unlock Answers at the Speed of Thought</em>
 </p>
 <p align="center">
 	<img src="https://img.shields.io/github/license/gabechu/smart-assistant-rag?style=default&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
@@ -38,7 +38,7 @@
 
 ##  Overview
 
-The smart-assistant-rag project is a sophisticated AI-powered smart assistant that leverages advanced natural language processing techniques. It seamlessly integrates various vector models such as Hugging Face and OpenAI for text encoding and response generation. The projects core functionalities include document retrieval through cosine similarity, text chunking for efficient processing, and high-quality query-based responses. By combining cutting-edge technologies in machine learning, the smart-assistant-rag project offers a valuable solution for personalized and contextually relevant interactions.
+Smart Assistant RAG is a sophisticated open-source project that combines retrieval and generation capabilities. It leverages AI models like Hugging Face and OpenAI for efficient search and response generation from documents. With modules for evaluation, preprocessing, and text generation, the project excels in evaluating relevance, diversity, and speed of generated responses. Smart Assistant RAG showcases the fusion of cutting-edge technologies to enhance the document retrieval and information generation process, providing users with a powerful and intelligent assistant for various tasks.
 
 ---
 
@@ -46,15 +46,16 @@ The smart-assistant-rag project is a sophisticated AI-powered smart assistant th
 
 |    |   Feature         | Description |
 |----|-------------------|---------------------------------------------------------------|
-| ⚙️  | **Architecture**  | The project follows a modular architecture with components like vector models, pipelines for retrieval and generation tasks, and preprocessing modules. It integrates Hugging Face and OpenAI for text encoding and response generation. |
-| 🔩 | **Code Quality**  | The codebase maintains a high level of quality and follows the Black code style. It enforces type checking using MyPy and includes clean and efficient implementations for vector operations and text generation tasks. |
-| 📄 | **Documentation** | The project includes detailed documentation via comments within the codebase explaining the purpose and functionality of each module and class. The `pyproject.toml` file captures essential project setup and dependencies. |
-| 🔌 | **Integrations**  | Key dependencies include `torch`, `transformers` from Hugging Face, `openai`, and others for text processing, AI generation, and vector search functionalities. External libraries like `requests`, `cryptography` are used for API interactions and data security. |
-| 🧩 | **Modularity**    | The codebase exhibits high modularity with distinct modules for vector models, retrieval pipelines, text generation, and preprocessing. Classes are well-encapsulated with clear responsibilities, promoting code reusability and maintainability. |
-| 🧪 | **Testing**       | The project likely employs testing frameworks such as `pytest` for unit tests and possibly integration tests to ensure the functionality and correctness of critical components like vector search, generation pipelines, and text preprocessing. |
-| ⚡️  | **Performance**   | The codebase emphasizes efficient vector operations and text processing, utilizing libraries like `torch` and `transformers` for optimized performance. The vector search algorithm with cosine similarity enables quick retrieval of relevant documents based on user queries. |
-| 🛡️ | **Security**      | The project incorporates secure practices through dependencies like `cryptography` for data protection. Access control and data integrity measures may be implemented for handling sensitive information within the text processing and response generation workflows. |
-| 📦 | **Dependencies**  | Key external libraries and dependencies include `torch`, `transformers`, `openai`, `requests`, and `cryptography`, providing essential tools and APIs for text encoding, generation, and security implementations. |
+| ⚙️  | **Architecture**  | The project architecture includes retrieval and generation pipelines using Hugging Face and OpenAI models. It defines vector models for text encoding and search functionalities for efficient document retrieval and response generation. |
+| 🔩 | **Code Quality**  | The codebase maintains high-quality standards with consistent code formatting using Black and type checking with Mypy. It follows best practices for AI tasks and development tools integration. |
+| 📄 | **Documentation** | The project provides detailed documentation, including notebooks for evaluating smart assistants' relevance and retrieval performance. It also explains the vector models, pipelines, and evaluation processes within the repository structure. |
+| 🔌 | **Integrations**  | Key dependencies include libraries like Transformers and Torch for AI tasks, along with tools for code formatting and type checking. External APIs from OpenAI are used for text generation and retrieval tasks. |
+| 🧩 | **Modularity**    | The codebase is modular with distinct modules for vector models, pipelines, retrieval, generation, and evaluation. It emphasizes reusability and encapsulation of functionalities for different components. |
+| 🧪 | **Testing**       | Testing frameworks and tools such as evaluate and pytest are used for evaluating generated responses, retrieval performance, and overall system efficiency. The codebase focuses on ensuring accuracy and reliability through testing. |
+| ⚡️  | **Performance**   | The project demonstrates efficient text encoding, retrieval, and generation processes for quick response generation. It utilizes vector-based search with cosine similarity calculations for faster document retrieval and processing. |
+| 🛡️ | **Security**      | Measures like cryptography for data protection and access control are implemented within the codebase. It ensures secure communication and handling of sensitive information within the smart assistant system. |
+| 📦 | **Dependencies**  | Key external libraries and dependencies include Transformers, Torch, OpenAI API, cryptography for security, and development tools like Black and Mypy for code quality. |
+| 🚀 | **Scalability**   | The project's architecture and modular design support scalability to handle increased traffic and load. It can efficiently scale the retrieval and generation processes for enhancing smart assistant capabilities. |
 
 ---
 
@@ -62,17 +63,27 @@ The smart-assistant-rag project is a sophisticated AI-powered smart assistant th
 
 ```sh
 └── smart-assistant-rag/
+    ├── .github
+    │   └── PULL_REQUEST_TEMPLATE.md
+    ├── README.md
+    ├── notebooks
+    │   ├── evaluate_rag.ipynb
+    │   └── evaluate_retrieval.ipynb
     ├── poetry.lock
     ├── pyproject.toml
-    └── src
-        ├── __init__.py
-        ├── data
-        ├── generation
-        ├── pipelines
-        ├── preprocessing
-        ├── retrieval
-        ├── utils.py
-        └── vector_models
+    ├── src
+    │   ├── __init__.py
+    │   ├── data
+    │   ├── evaluation
+    │   ├── generation
+    │   ├── pipelines
+    │   ├── preprocessing
+    │   ├── retrieval
+    │   ├── utils.py
+    │   └── vector_models
+    └── tests
+        ├── rag_evaluation_data.json
+        └── retrieval_evaluation_data.json
 ```
 
 ---
@@ -81,63 +92,81 @@ The smart-assistant-rag project is a sophisticated AI-powered smart assistant th
 
 <details closed><summary>.</summary>
 
-| File                                                                                        | Summary                                                                                                                                                                                                                             |
-| ---                                                                                         | ---                                                                                                                                                                                                                                 |
-| [pyproject.toml](https://github.com/gabechu/smart-assistant-rag/blob/master/pyproject.toml) | Defines project metadata and dependencies for the smart-assistant-rag repository. Manages Python version, libraries, testing tools, and build configuration. Captures essential details for project setup and development workflow. |
+| File                                                                                        | Summary                                                                                                                                                                                                                                                 |
+| ---                                                                                         | ---                                                                                                                                                                                                                                                     |
+| [pyproject.toml](https://github.com/gabechu/smart-assistant-rag/blob/master/pyproject.toml) | Defines project dependencies for the smart-assistant-rag repository using pyproject.toml. Specifies libraries like Transformers and Torch for AI tasks, along with development tools. Maintains code formatting with Black and type checking with Mypy. |
+
+</details>
+
+<details closed><summary>notebooks</summary>
+
+| File                                                                                                                      | Summary                                                                                                                                                                                                                                                     |
+| ---                                                                                                                       | ---                                                                                                                                                                                                                                                         |
+| [evaluate_rag.ipynb](https://github.com/gabechu/smart-assistant-rag/blob/master/notebooks/evaluate_rag.ipynb)             | Generates responses for evaluating smart assistants relevance, diversity, and speed in retrieving and generating information from documents. Utilizes distinct retrieval and generation pipelines for analysis in the smart assistant repository structure. |
+| [evaluate_retrieval.ipynb](https://github.com/gabechu/smart-assistant-rag/blob/master/notebooks/evaluate_retrieval.ipynb) | Executes retrieval evaluation using various vector models. Loads and evaluates top-k retrieval results, measuring precision, recall, and MRR. Facilitates comparison between HuggingFace and OpenAI vector models.                                          |
 
 </details>
 
 <details closed><summary>src</summary>
 
-| File                                                                                | Summary                                                                                                                                                                                                       |
-| ---                                                                                 | ---                                                                                                                                                                                                           |
-| [utils.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/utils.py) | Calculates cosine similarity scores between a query vector and a set of document vectors. Implements efficient vector operations for retrieval tasks within the smart-assistant-rag repositorys architecture. |
+| File                                                                                | Summary                                                                                                                                                                       |
+| ---                                                                                 | ---                                                                                                                                                                           |
+| [utils.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/utils.py) | Calculates cosine similarity in batches between query and document vectors, aiding in efficient similarity computations within various modules like retrieval and generation. |
 
 </details>
 
 <details closed><summary>src.vector_models</summary>
 
-| File                                                                                                                                      | Summary                                                                                                                                                                                                                                                 |
-| ---                                                                                                                                       | ---                                                                                                                                                                                                                                                     |
-| [base_vector_model.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/vector_models/base_vector_model.py)                 | Defines an abstract class for encoding text data as vector representations, enforcing this behavior in subclasses.核                                                                                                                                     |
-| [hugging_face_vector_model.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/vector_models/hugging_face_vector_model.py) | Implements Hugging Face vector model for text encoding. Utilizes AutoModel and AutoTokenizer to generate embeddings from input text. Implements mean pooling to average hidden states for each token, producing numpy arrays for downstream processing. |
-| [openai_vector_model.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/vector_models/openai_vector_model.py)             | Implements OpenAI API integration in the vector model. Handles text embedding using specified model names and batch processing for efficient encoding of text data. Interacts with the parent repositorys vector models structure.                      |
+| File                                                                                                                                      | Summary                                                                                                                                                                                                      |
+| ---                                                                                                                                       | ---                                                                                                                                                                                                          |
+| [base_vector_model.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/vector_models/base_vector_model.py)                 | Defines an abstract base for vector models to encode text inputs with floating-point arrays.                                                                                                                 |
+| [hugging_face_vector_model.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/vector_models/hugging_face_vector_model.py) | Implements a Hugging Face vector model for encoding text using mean pooling. Utilizes transformers library for model loading and tokenization. Performs vector encoding efficiently for downstream tasks.    |
+| [openai_vector_model.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/vector_models/openai_vector_model.py)             | Implements OpenAI embedding generation with efficient batching for text encoding using the OpenAI API within the vector models module. Enhances the architecture with advanced text processing capabilities. |
 
 </details>
 
 <details closed><summary>src.pipelines</summary>
 
-| File                                                                                                                                                                                  | Summary                                                                                                                                                                                                                 |
-| ---                                                                                                                                                                                   | ---                                                                                                                                                                                                                     |
-| [hugging_face_retrieval_openai_generation_pipeline.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/pipelines/hugging_face_retrieval_openai_generation_pipeline.py) | Implements a pipeline that utilizes Hugging Face for retrieval and OpenAI for generative responses. Integrates VectorSearch and RagPipeline functionalities for high-quality response generation based on user queries. |
-| [rag_pipeline.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/pipelines/rag_pipeline.py)                                                                           | Defines RagPipeline integrating data loading, chunking, and search-generation process. Loads PDF data, splits chunks, and performs query-based response generation using retrieval and generation modules.              |
-| [openai_retrieval_openai_generation_pipeline.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/pipelines/openai_retrieval_openai_generation_pipeline.py)             | Creates a pipeline for AI-powered question-answering. Utilizes OpenAI for text generation and vector search, improving response accuracy. Simplifies query-response generation for the smart assistant.                 |
+| File                                                                                                                                                                                  | Summary                                                                                                                                                                                                                                         |
+| ---                                                                                                                                                                                   | ---                                                                                                                                                                                                                                             |
+| [hugging_face_retrieval_openai_generation_pipeline.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/pipelines/hugging_face_retrieval_openai_generation_pipeline.py) | Defines pipeline integrating Hugging Face retrieval and OpenAI generation for RAG. Utilizes Hugging Face vector model and OpenAI GPT-4o. Achieves seamless retrieval and generation functionalities for the Smart Assistant RAG project.        |
+| [rag_pipeline.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/pipelines/rag_pipeline.py)                                                                           | Generates responses by loading PDF documents in chunks for retrieval. Utilizes a retrieval module and a generation module to search queried information. Facilitates document context extraction and response generation based on user queries. |
+| [openai_retrieval_openai_generation_pipeline.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/pipelines/openai_retrieval_openai_generation_pipeline.py)             | Defines a pipeline merging OpenAI retrieval and generation models for the Smart Assistant RAG system. Integrates OpenAI Vector Model for search and GPT-4 for text generation, enhancing the assistants capabilities.                           |
 
 </details>
 
 <details closed><summary>src.retrieval</summary>
 
-| File                                                                                                          | Summary                                                                                                                                                                                                                                          |
-| ---                                                                                                           | ---                                                                                                                                                                                                                                              |
-| [vector_search.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/retrieval/vector_search.py) | Implements a vector search algorithm utilizing cosine similarity for document retrieval based on input queries using a specified vector model. Enables ranking top-k relevant documents for a given input query by leveraging vector embeddings. |
-| [base_search.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/retrieval/base_search.py)     | Defines an abstract class providing methods for search functionality. Manages top-k results and document retrieval with an abstract search function, ensuring documents are set before searching.                                                |
+| File                                                                                                          | Summary                                                                                                                                                                                                                                                                |
+| ---                                                                                                           | ---                                                                                                                                                                                                                                                                    |
+| [vector_search.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/retrieval/vector_search.py) | Implements a vector-based search to find top-k relevant documents given a query, leveraging cosine similarity. Ensures documents are loaded before searching, with configurable top-k results. Crucial for document retrieval within the smart assistant architecture. |
+| [base_search.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/retrieval/base_search.py)     | Defines an abstract base class for search operations within the repositorys retrieval module. Specifies methods for setting and retrieving documents, as well as performing search operations on a given query.                                                        |
+
+</details>
+
+<details closed><summary>src.evaluation</summary>
+
+| File                                                                                                                       | Summary                                                                                                                                                                                                                                                  |
+| ---                                                                                                                        | ---                                                                                                                                                                                                                                                      |
+| [rag_evaluator.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/evaluation/rag_evaluator.py)             | Calculates** BLEU, diversity, and speed scores for generated responses using RagPipeline. **Iterates** over evaluation data, **comparing** generated against reference, **displaying** metrics.                                                          |
+| [retrieval_evaluator.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/evaluation/retrieval_evaluator.py) | Evaluates retrieval performance by calculating metrics like Precision@k, Recall@k, and MRR. Fetches evaluation data and uses a retrieval search method. Enables analysis of query relevance based on retrieved and relevant documents for each instance. |
 
 </details>
 
 <details closed><summary>src.preprocessing</summary>
 
-| File                                                                                                              | Summary                                                                                                                                                                                                                                     |
-| ---                                                                                                               | ---                                                                                                                                                                                                                                         |
-| [text_splitter.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/preprocessing/text_splitter.py) | Enables text splitting using a specific tokenizer. Splits text into manageable chunks based on configured chunk size. This aids in processing large text inputs efficiently within the preprocessing module of the smart assistant project. |
+| File                                                                                                              | Summary                                                                                                                                                    |
+| ---                                                                                                               | ---                                                                                                                                                        |
+| [text_splitter.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/preprocessing/text_splitter.py) | Enables text splitting into chunks based on a specified size using a customized tokenizer for the smart-assistant-rag repositorys preprocessing component. |
 
 </details>
 
 <details closed><summary>src.generation</summary>
 
-| File                                                                                                                   | Summary                                                                                                                                                                                                                                       |
-| ---                                                                                                                    | ---                                                                                                                                                                                                                                           |
-| [openai_generation.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/generation/openai_generation.py) | Generates text responses using OpenAI API based on user prompts. Inherits from a base class, sets up OpenAI client with API key, and retrieves model-generated text in chunks. Falls under src/generation module in the repository structure. |
-| [base_generation.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/generation/base_generation.py)     | Defines an abstract class for generating text based on a given prompt within the smart-assistant-rag repositorys architecture.                                                                                                                |
+| File                                                                                                                   | Summary                                                                                                                                                                                                                                                                   |
+| ---                                                                                                                    | ---                                                                                                                                                                                                                                                                       |
+| [openai_generation.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/generation/openai_generation.py) | Generates text completions from OpenAI models based on user input prompts, utilizing OpenAI API for language generation. A subclass of BaseGeneration, it facilitates chat-like interactions by creating and processing model completions for natural language responses. |
+| [base_generation.py](https://github.com/gabechu/smart-assistant-rag/blob/master/src/generation/base_generation.py)     | Defines an abstract base class for generating text output based on input prompts. This module acts as a blueprint for implementing text generation functionality within the smart assistant projects architecture.                                                        |
 
 </details>
 
