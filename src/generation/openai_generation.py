@@ -10,9 +10,14 @@ class OpenaiGeneration(BaseGeneration):
         self._client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
         self._model_name = model_name
 
-    def generate(self, prompt: str) -> None:
+    def generate(self, prompt: str) -> str:
         stream = self._client.chat.completions.create(
             messages=[{"role": "user", "content": prompt}], model=self._model_name, stream=True
         )
+
+        response = []
         for chunk in stream:
-            print(chunk.choices[0].delta.content or "", end="")
+            content = chunk.choices[0].delta.content
+            if content:
+                response.append(content)
+        return "".join(response)

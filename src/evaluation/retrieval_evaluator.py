@@ -16,7 +16,7 @@ class RetrievalEvaluator:
         return base_path / "tests" / "fake_data.json"
 
     @cached_property
-    def _evaluation_instances(self) -> list[dict]:
+    def _evaluation_instances(self):
         with open(self.evaluation_file_path) as f:
             data = json.loads(f.read())
         return data["queries"]
