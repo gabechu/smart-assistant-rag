@@ -25,3 +25,16 @@ class RagEvaluationDataLoader(BaseEvaluationDataLoader):
         with open(self.evaluation_file_path) as f:
             data = json.loads(f.read())
         return data["queries"]
+
+
+class RetrievalEvaluationDataLoader(BaseEvaluationDataLoader):
+    @property
+    def evaluation_file_path(self) -> Path:
+        base_path = Path(__file__).parent.parent.parent
+        return base_path / "tests" / "retrieval_evaluation_data.json"
+
+    @cached_property
+    def evaluation_data(self) -> list[dict]:
+        with open(self.evaluation_file_path) as f:
+            data = json.loads(f.read())
+        return data["queries"]
