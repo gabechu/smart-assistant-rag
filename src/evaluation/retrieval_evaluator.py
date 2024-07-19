@@ -1,25 +1,11 @@
-import json
-from functools import cached_property
-from pathlib import Path
-
-
+from src.data.evaluation_data_loader import RetrievalEvaluationDataLoader
 from src.retrieval.base_search import BaseSearch
 
 
 class RetrievalEvaluator:
     def __init__(self, retrieval_search: BaseSearch) -> None:
         self._retrieval_search = retrieval_search
-
-    @property
-    def evaluation_file_path(self) -> Path:
-        base_path = Path(__file__).parent.parent.parent
-        return base_path / "tests" / "fake_data.json"
-
-    @cached_property
-    def _evaluation_instances(self):
-        with open(self.evaluation_file_path) as f:
-            data = json.loads(f.read())
-        return data["queries"]
+        self._eval_data_loader = RetrievalEvaluationDataLoader()
 
     def _mean_reciprocal_rank(self, retrieved_docs: list[str], relevant_docs: list[str]) -> float:
         for i, doc in enumerate(retrieved_docs):
@@ -38,8 +24,10 @@ class RetrievalEvaluator:
         return len(relevant_at_k) / len(relevant_docs)
 
     def evaluate(self, k: int) -> list[dict[str, float]]:
+        eval_data = self._eval_data_loader.evaluation_data
+
         results = []
-        for instance in self._evaluation_instances:
+        for instance in eval_data:
             retrieved_docs = self._retrieval_search.search(instance["query"])
             relevant_docs = instance["relevant_docs"]
             results.append(
