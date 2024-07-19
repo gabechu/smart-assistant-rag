@@ -34,8 +34,17 @@ class RagPipeline:
             self._retrieval.documents = chunks
         return self._retrieval.documents
 
-    def generate_response(self, query: str) -> None:
+    def generate_response(self, query: str) -> str:
         self._load_documents_for_retrieval()
         top_chunks = self._retrieval.search(query)
-        context = " ".join(top_chunks)
-        self._generation.generate(prompt=query + " " + context)
+
+        context = "\n\n".join([f"Document {i + 1}: {doc}" for i, doc in enumerate(top_chunks)])
+        prompt = (
+            f"User query: {query}\n\n"
+            f"Context from retrieved documents:\n{context}\n\n"
+            f"Please generate a response based on the above query and context."
+        )
+
+        generated_text = self._generation.generate(prompt=prompt)
+
+        return generated_text

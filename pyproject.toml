@@ -15,6 +15,7 @@ torch = "^2.3.1"
 openai = "^1.35.13"
 tiktoken = "*"
 pydantic = ">=1.10.9,<2.0.0"
+evaluate = "^0.4.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
@@ -22,6 +23,7 @@ ruff = "^0.5.1"
 mypy = "^1.10.1"
 types-requests = "^2.32.0.20240712"
 readmeai = "*"
+jupyterlab = "^4.2.4"
 
 [build-system]
 requires = ["poetry-core"]
@@ -42,4 +44,3 @@ mypy_path = "src"
 namespace_packages = true
 ignore_missing_imports = true
 show_error_codes = true
-strict = true
